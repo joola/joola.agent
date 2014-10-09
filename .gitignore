@@ -1,0 +1,16 @@
+.idea
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+npm-debug.log
+node_modules
+atlassian-ide-plugin.xml
+coverage
+config/runtime.json
+.vagrant
