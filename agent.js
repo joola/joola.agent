@@ -6,8 +6,9 @@ var
 
 console.log('Starting Joola Agent, version ' + version + '.');
 
-var loads = os.loadavg();
+var cnc = 'https://cnc.joo.la'; //https://localhost:9091';
 
+var loads = os.loadavg();
 var hostname = 'n-dont-delete-1.c.integrated-net-594.internal'; //os.hostname();
 
 var usage_os = {
@@ -23,7 +24,7 @@ var usage_os = {
 //console.log(usage_os);
 
 var postOptions = {
-  url: 'https://localhost:9091/api/nodes/usage?APIToken=apitoken-itay',
+  url: cnc + '/api/nodes/usage?APIToken=apitoken-itay',
   headers: {
     'Content-Type': 'application/json'
   },
@@ -143,7 +144,7 @@ request(postOptions, function (error, response, body) {
           console.log(usage_joola);
 
           var postOptions = {
-            url: 'https://localhost:9091/api/applications/usage?APIToken=apitoken-itay',
+            url: cnc + '/api/applications/usage?APIToken=apitoken-itay',
             headers: {
               'Content-Type': 'application/json'
             },
