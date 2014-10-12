@@ -9,7 +9,7 @@ console.log('Starting Joola Agent, version ' + version + '.');
 var cnc = 'https://cnc.joo.la'; //https://localhost:9091';
 
 var loads = os.loadavg();
-var hostname = 'n-dont-delete-1.c.integrated-net-594.internal'; //os.hostname();
+var hostname = os.hostname();
 
 var usage_os = {
   uid: hostname.replace('.c.integrated-net-594.internal', ''),
