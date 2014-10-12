@@ -1,4 +1,7 @@
 {
-  "name": "application-name",
-  "version": "0.0.1"
+  "name": "joola.agent",
+  "version": "0.0.1",
+  "dependencies": {
+    "request": "^2.45.0"
+  }
 }
