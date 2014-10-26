@@ -9,7 +9,7 @@ var
 
 var last_timestamp = null;
 try {
-  last_timestamp = require('opt/joola.agent/last_timestamp.json').timestamp;
+  last_timestamp = require('/opt/joola.agent/last_timestamp.json').timestamp;
   last_timestamp = new Date(last_timestamp);
   console.log('Found last used timestamp, ' + last_timestamp.toISOString());
 }
