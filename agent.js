@@ -209,9 +209,13 @@ function queryJoola(token, callback) {
     }
 
     saveTimestamp(enddate);
+    if (usage.reads > 0 || usage.writes > 0)
+      usage.last_used = new Date();
+    else
+      usage.last_used = null;
 
     var postOptions = {
-      url: config.joola.engine + '/usage/last_use?APIToken=' + config.joola.apitoken,
+      url: config.joola.engine + '/system/version?APIToken=' + config.joola.apitoken,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -225,27 +229,9 @@ function queryJoola(token, callback) {
         throw (err || new Error(results));
 
       results = JSON.parse(results);
-      usage.last_used = new Date(results.last_use);
-
-      var postOptions = {
-        url: config.joola.engine + '/system/version?APIToken=' + config.joola.apitoken,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: "GET",
-        rejectUnauthorized: false,
-        requestCert: true,
-        agent: false
-      };
-      request(postOptions, function (err, response, results) {
-        if (err)
-          throw (err || new Error(results));
-
-        results = JSON.parse(results);
-        usage.version = results.version;
-        usage.sdk_version = results.sdk_version;
-        return callback(null, usage);
-      });
+      usage.version = results.version;
+      usage.sdk_version = results.sdk_version;
+      return callback(null, usage);
     });
   });
 }
