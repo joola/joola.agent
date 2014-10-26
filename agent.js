@@ -5,11 +5,11 @@ var
   fs = require('fs'),
   os = require('os'),
   request = require('request'),
-  version = require(path.join(__dirname, './package.json')).version;
+  version = require('/opt/joola.agent/package.json').version;
 
 var last_timestamp = null;
 try {
-  last_timestamp = require(path.join(__dirname, './last_timestamp.json')).timestamp;
+  last_timestamp = require('opt/joola.agent/last_timestamp.json').timestamp;
   last_timestamp = new Date(last_timestamp);
   console.log('Found last used timestamp, ' + last_timestamp.toISOString());
 }
