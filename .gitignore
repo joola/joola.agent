@@ -14,3 +14,4 @@ atlassian-ide-plugin.xml
 coverage
 config/runtime.json
 .vagrant
+last_timestamp.json

@@ -1,7 +1,6 @@
 {
-  "hostname": "n-genius-function-541-1",
   "cnc": {
-    "engine": "http://localhost:9090",
+    "engine": "https://cnc.joo.la",
     "apitoken": "3oJ03Pxrezz3PWe8JGgjlTqJPjJ1pnax"
   },
   "joola": {

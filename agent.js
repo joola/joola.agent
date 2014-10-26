@@ -1,10 +1,21 @@
 var
   config = require('./config.json'),
   util = require('util'),
+  fs = require('fs'),
   os = require('os'),
   request = require('request'),
   version = require('./package.json').version;
 
+var last_timestamp = null;
+try {
+  last_timestamp = require('./last_timestamp.json').timestamp;
+  last_timestamp = new Date(last_timestamp);
+  console.log('Found last used timestamp, ' + last_timestamp.toISOString());
+}
+catch (ex) {
+  last_timestamp = new Date();
+  last_timestamp.setMonth(last_timestamp.getMonth() - 12);
+}
 console.log('Starting Joola Agent, version ' + version + '.');
 
 collectLocalUsage(function (err, usage) {
@@ -163,8 +174,12 @@ function fetchJoolaStatsToken(callback) {
 
 function queryJoola(token, callback) {
   var usage = {};
+  var enddate = new Date();
   var query = {
-    timeframe: 'last_365_days',
+    timeframe: {
+      start: last_timestamp,
+      end: enddate
+    },
     interval: 'day',
     dimensions: [],
     metrics: [
@@ -192,6 +207,8 @@ function queryJoola(token, callback) {
       usage.reads = results.documents[0].values.readCount;
       usage.writes = results.documents[0].values.writeCount;
     }
+
+    saveTimestamp(enddate);
 
     var postOptions = {
       url: config.joola.engine + '/usage/last_use?APIToken=' + config.joola.apitoken,
@@ -290,3 +307,16 @@ function postJoolaUsage(usage, callback) {
     return callback(null);
   });
 }
+
+function saveTimestamp(ts) {
+  var outputFilename = './last_timestamp.json';
+
+  fs.writeFile(outputFilename, JSON.stringify({timestamp: ts}, null, 4), function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("JSON saved to " + outputFilename);
+    }
+  });
+}
+  
