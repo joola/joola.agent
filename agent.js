@@ -296,7 +296,7 @@ function postJoolaUsage(usage, callback) {
 }
 
 function saveTimestamp(ts) {
-  var outputFilename = './last_timestamp.json';
+  var outputFilename = '/opt/joola.agent/last_timestamp.json';
 
   fs.writeFile(outputFilename, JSON.stringify({timestamp: ts}, null, 4), function (err) {
     if (err) {
